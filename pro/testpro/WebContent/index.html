@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title></title>
+		<link href="css/zTreeStyle.css" type="text/css" rel="stylesheet"/>
+	</head>
+	<body>
+		<ul id="tree" class="ztree" style="width:230px; overflow:auto;">
+			
+		</ul>
+	</body>
+	<script src="js/jquery-1.4.4.min.js"></script>
+	<script src="js/jquery.ztree.all.min.js"></script>
+	<script>
+		$(function(){
+			
+			function zTreeOnCheck(event, treeId, treeNode) {
+    			alert(treeNode.tId + ", " + treeNode.name + "," + treeNode.checked);
+			};
+			
+	        var setting={
+	            check: {
+	                enable: true,
+	                chkStyle: "checkbox",//显示 checkbox 选择框，默认checkbox可选择值radio
+	            },
+	            callback:{
+	            	onCheck:zTreeOnCheck
+	            },
+	            async: {
+                enable: true,//要开启async功能必须设置为true,其他地方同理
+                dataType: "json",
+                url: "CityServlet",
+                type:"get"
+            	},
+	            data: {
+	                simpleData: {
+	                    enable: true,
+	                    idKey: "id",//节点id名
+	                    pIdKey: "pid",//父节点id名
+	                    rootPId: 0//默认根节点为0
+	                }
+	            }
+
+	        };
+			var zTreeNodes=[
+//			    {"name":"北京","open":true,children:[
+//			        {"name":"东城区"},
+//			        {"name":"朝阳区"}
+//			    ]},//open:true表示默认展开
+//			    {"name":"重庆","open":true,children:[
+//			        {"name":"巴南区",children:[
+//			            {"name":"南泉"},
+//			            {"name":"界石"}
+//			        ]},
+//			        {"name":"渝中区"}
+//			    ]}
+			];
+			    var city = $.fn.zTree.init($("#tree"), setting, zTreeNodes);    
+			//第一个参数为zTree的DOM容器，第二个为zTree设置详情可见官网api,第三个为zTree的节点数据 
+		});
+		
+	</script>
+</html>
